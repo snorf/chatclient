@@ -13,6 +13,9 @@
 		04152EAA148A482A00255FC2 /* CCMessageViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EA9148A482A00255FC2 /* CCMessageViewTableCell.m */; };
 		04152EAD148A4C5200255FC2 /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EAC148A4C5200255FC2 /* ChatMessage.m */; };
 		04152EB0148A4CCF00255FC2 /* ChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EAF148A4CCF00255FC2 /* ChatSession.m */; };
+		04152EB5148A5D6400255FC2 /* aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 04152EB3148A5D6400255FC2 /* aqua.png */; };
+		04152EB6148A5D6400255FC2 /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 04152EB4148A5D6400255FC2 /* orange.png */; };
+		04152EB9148A6F1A00255FC2 /* ChatServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EB8148A6F1A00255FC2 /* ChatServer.m */; };
 		041E3379148A2FED00C76265 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E3378148A2FED00C76265 /* UIKit.framework */; };
 		041E337B148A2FED00C76265 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E337A148A2FED00C76265 /* Foundation.framework */; };
 		041E337D148A2FED00C76265 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E337C148A2FED00C76265 /* CoreGraphics.framework */; };
@@ -53,6 +56,10 @@
 		04152EAC148A4C5200255FC2 /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessage.m; sourceTree = "<group>"; };
 		04152EAE148A4CCF00255FC2 /* ChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSession.h; sourceTree = "<group>"; };
 		04152EAF148A4CCF00255FC2 /* ChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSession.m; sourceTree = "<group>"; };
+		04152EB3148A5D6400255FC2 /* aqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aqua.png; sourceTree = "<group>"; };
+		04152EB4148A5D6400255FC2 /* orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange.png; sourceTree = "<group>"; };
+		04152EB7148A6F1A00255FC2 /* ChatServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatServer.h; sourceTree = "<group>"; };
+		04152EB8148A6F1A00255FC2 /* ChatServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatServer.m; sourceTree = "<group>"; };
 		041E3374148A2FED00C76265 /* ChatClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		041E3378148A2FED00C76265 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		041E337A148A2FED00C76265 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -102,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04152EB2148A5D5000255FC2 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				04152EB3148A5D6400255FC2 /* aqua.png */,
+				04152EB4148A5D6400255FC2 /* orange.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 		041E3369148A2FED00C76265 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +152,7 @@
 		041E3380148A2FEE00C76265 /* ChatClient */ = {
 			isa = PBXGroup;
 			children = (
+				04152EB2148A5D5000255FC2 /* Images */,
 				04152E8D148A41AD00255FC2 /* AKeyboardAwareUIViewController.h */,
 				04152E8E148A41AD00255FC2 /* AKeyboardAwareUIViewController.m */,
 				041E3389148A2FEE00C76265 /* AppDelegate.h */,
@@ -146,6 +163,8 @@
 				04152E89148A3DAD00255FC2 /* ChatController.m */,
 				04152EAB148A4C5200255FC2 /* ChatMessage.h */,
 				04152EAC148A4C5200255FC2 /* ChatMessage.m */,
+				04152EB7148A6F1A00255FC2 /* ChatServer.h */,
+				04152EB8148A6F1A00255FC2 /* ChatServer.m */,
 				04152EAE148A4CCF00255FC2 /* ChatSession.h */,
 				04152EAF148A4CCF00255FC2 /* ChatSession.m */,
 				041E338F148A2FEE00C76265 /* ChatSessionController.h */,
@@ -261,6 +280,8 @@
 				041E3385148A2FEE00C76265 /* InfoPlist.strings in Resources */,
 				041E3397148A2FEE00C76265 /* ChatSessionController.xib in Resources */,
 				04152E8C148A3DAD00255FC2 /* ChatController.xib in Resources */,
+				04152EB5148A5D6400255FC2 /* aqua.png in Resources */,
+				04152EB6148A5D6400255FC2 /* orange.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +325,7 @@
 				04152EAA148A482A00255FC2 /* CCMessageViewTableCell.m in Sources */,
 				04152EAD148A4C5200255FC2 /* ChatMessage.m in Sources */,
 				04152EB0148A4CCF00255FC2 /* ChatSession.m in Sources */,
+				04152EB9148A6F1A00255FC2 /* ChatServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

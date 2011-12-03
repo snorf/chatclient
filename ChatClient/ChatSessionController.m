@@ -155,17 +155,28 @@
     return NO;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (!self.chatController) {
-        self.chatController = [[[ChatController alloc] initWithNibName:@"ChatController" bundle:nil] autorelease];
-    }
-    self.chatController.managedObjectContext = self.managedObjectContext;
-    ChatSession *chatSession = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    //NSLog(@"%@", [chatSession.chatMessages description]);
+
+- (void)setChatWindowData:(ChatSession*)chatSession {
+    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:YES] autorelease];
+    self.chatController.chatMessages = [chatSession.chatMessages.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     self.chatController.chatSession = chatSession;
-    [self.navigationController pushViewController:self.chatController animated:YES];
+    //NSLog(@"ChatMessages: %@", [self.chatController.chatMessages description]);
+    self.chatController.title = chatSession.buddyUserId;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{   
+    self.chatController = nil;
+    self.chatController = [[ChatController alloc] initWithNibName:@"ChatController" bundle:nil];
+    ChatSession *chatSession = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    // Set chat window data
+    [self setChatWindowData:chatSession];
+    
+    [self.navigationController pushViewController:self.chatController animated:YES];
+    [self.chatController release];
+}
+
+
 
 #pragma mark - Fetched results controller
 
@@ -274,7 +285,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     ChatSession *chatSession = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [chatSession.timeStamp description];
+    cell.textLabel.text = [chatSession.lastChatMessage description];
 }
 
 - (void)insertNewObject
@@ -288,12 +299,6 @@
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
     newManagedObject.timeStamp = [NSDate date];
     newManagedObject.buddyUserId = @"hejhapp";
-    
-    ChatMessage *chatMessage = [NSEntityDescription insertNewObjectForEntityForName:@"ChatMessage" inManagedObjectContext:context];
-    chatMessage.message = @"Echo123";
-    chatMessage.sender = @"You";
-    chatMessage.timeStamp = [NSDate date];
-    chatMessage.chatSession = newManagedObject;
     
     // Save the context.
     NSError *error = nil;

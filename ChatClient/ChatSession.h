@@ -13,5 +13,5 @@
 @property (nonatomic, retain) NSDate *lastChatDate;
 @property (nonatomic, retain) NSString *lastChatMessage;
 @property (nonatomic, retain) NSDate *timeStamp;
-@property (nonatomic, retain) NSArray *chatMessages;
+@property (nonatomic, retain) NSMutableSet *chatMessages;
 @end

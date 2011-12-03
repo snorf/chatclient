@@ -11,15 +11,15 @@
 
 #import "ChatSession.h"
 #import "AKeyboardAwareUIViewController.h"
+#import "ChatServer.h"
 
-@interface ChatController : AKeyboardAwareUIViewController <NSFetchedResultsControllerDelegate> {
+@interface ChatController : AKeyboardAwareUIViewController <UITextFieldDelegate> {
    IBOutlet UITableView *tableView;    
 }
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) ChatSession *chatSession;
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSArray *chatMessages;
+@property (strong, nonatomic) ChatServer *chatServer;
 
 @end

@@ -14,7 +14,7 @@
         <relationship name="chatMessages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChatMessage" inverseName="chatSession" inverseEntity="ChatMessage" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ChatMessage" positionX="-11648" positionY="-6213" width="128" height="105"/>
-        <element name="ChatSession" positionX="-11810" positionY="-6426" width="128" height="120"/>
+        <element name="ChatMessage" positionX="-11522" positionY="-6120" width="128" height="90"/>
+        <element name="ChatSession" positionX="-11520" positionY="-6453" width="128" height="120"/>
     </elements>
 </model>
