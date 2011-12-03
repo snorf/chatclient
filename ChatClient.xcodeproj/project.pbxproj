@@ -15,9 +15,9 @@
 		041E3387148A2FEE00C76265 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E3386148A2FEE00C76265 /* main.m */; };
 		041E338B148A2FEE00C76265 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E338A148A2FEE00C76265 /* AppDelegate.m */; };
 		041E338E148A2FEE00C76265 /* ChatClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 041E338C148A2FEE00C76265 /* ChatClient.xcdatamodeld */; };
-		041E3391148A2FEE00C76265 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E3390148A2FEE00C76265 /* MasterViewController.m */; };
+		041E3391148A2FEE00C76265 /* ChatSessionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E3390148A2FEE00C76265 /* ChatSessionController.m */; };
 		041E3394148A2FEE00C76265 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E3393148A2FEE00C76265 /* DetailViewController.m */; };
-		041E3397148A2FEE00C76265 /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E3395148A2FEE00C76265 /* MasterViewController.xib */; };
+		041E3397148A2FEE00C76265 /* ChatSessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E3395148A2FEE00C76265 /* ChatSessionController.xib */; };
 		041E339A148A2FEE00C76265 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E3398148A2FEE00C76265 /* DetailViewController.xib */; };
 		041E33A2148A2FEE00C76265 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E33A1148A2FEE00C76265 /* SenTestingKit.framework */; };
 		041E33A3148A2FEE00C76265 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E3378148A2FED00C76265 /* UIKit.framework */; };
@@ -43,24 +43,24 @@
 		041E337A148A2FED00C76265 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		041E337C148A2FED00C76265 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		041E337E148A2FED00C76265 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		041E3382148A2FEE00C76265 /* ChatClient-Info.plist */ = {isa = PBXFileReference; path = "ChatClient-Info.plist"; sourceTree = "<group>"; };
+		041E3382148A2FEE00C76265 /* ChatClient-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChatClient-Info.plist"; sourceTree = "<group>"; };
 		041E3384148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		041E3386148A2FEE00C76265 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		041E3388148A2FEE00C76265 /* ChatClient-Prefix.pch */ = {isa = PBXFileReference; path = "ChatClient-Prefix.pch"; sourceTree = "<group>"; };
-		041E3389148A2FEE00C76265 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		041E3388148A2FEE00C76265 /* ChatClient-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChatClient-Prefix.pch"; sourceTree = "<group>"; };
+		041E3389148A2FEE00C76265 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		041E338A148A2FEE00C76265 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		041E338D148A2FEE00C76265 /* ChatClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatClient.xcdatamodel; sourceTree = "<group>"; };
-		041E338F148A2FEE00C76265 /* MasterViewController.h */ = {isa = PBXFileReference; path = MasterViewController.h; sourceTree = "<group>"; };
-		041E3390148A2FEE00C76265 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		041E3392148A2FEE00C76265 /* DetailViewController.h */ = {isa = PBXFileReference; path = DetailViewController.h; sourceTree = "<group>"; };
+		041E338F148A2FEE00C76265 /* ChatSessionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatSessionController.h; sourceTree = "<group>"; };
+		041E3390148A2FEE00C76265 /* ChatSessionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatSessionController.m; sourceTree = "<group>"; };
+		041E3392148A2FEE00C76265 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		041E3393148A2FEE00C76265 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		041E3396148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
+		041E3396148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ChatSessionController.xib; sourceTree = "<group>"; };
 		041E3399148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 		041E33A0148A2FEE00C76265 /* ChatClientTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatClientTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		041E33A1148A2FEE00C76265 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		041E33AA148A2FEE00C76265 /* ChatClientTests-Info.plist */ = {isa = PBXFileReference; path = "ChatClientTests-Info.plist"; sourceTree = "<group>"; };
+		041E33AA148A2FEE00C76265 /* ChatClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChatClientTests-Info.plist"; sourceTree = "<group>"; };
 		041E33AC148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		041E33AE148A2FEE00C76265 /* ChatClientTests.h */ = {isa = PBXFileReference; path = ChatClientTests.h; sourceTree = "<group>"; };
+		041E33AE148A2FEE00C76265 /* ChatClientTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatClientTests.h; sourceTree = "<group>"; };
 		041E33AF148A2FEE00C76265 /* ChatClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatClientTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,11 +126,11 @@
 			children = (
 				041E3389148A2FEE00C76265 /* AppDelegate.h */,
 				041E338A148A2FEE00C76265 /* AppDelegate.m */,
-				041E338F148A2FEE00C76265 /* MasterViewController.h */,
-				041E3390148A2FEE00C76265 /* MasterViewController.m */,
+				041E338F148A2FEE00C76265 /* ChatSessionController.h */,
+				041E3390148A2FEE00C76265 /* ChatSessionController.m */,
 				041E3392148A2FEE00C76265 /* DetailViewController.h */,
 				041E3393148A2FEE00C76265 /* DetailViewController.m */,
-				041E3395148A2FEE00C76265 /* MasterViewController.xib */,
+				041E3395148A2FEE00C76265 /* ChatSessionController.xib */,
 				041E3398148A2FEE00C76265 /* DetailViewController.xib */,
 				041E338C148A2FEE00C76265 /* ChatClient.xcdatamodeld */,
 				041E3381148A2FEE00C76265 /* Supporting Files */,
@@ -239,7 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				041E3385148A2FEE00C76265 /* InfoPlist.strings in Resources */,
-				041E3397148A2FEE00C76265 /* MasterViewController.xib in Resources */,
+				041E3397148A2FEE00C76265 /* ChatSessionController.xib in Resources */,
 				041E339A148A2FEE00C76265 /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,7 +278,7 @@
 				041E3387148A2FEE00C76265 /* main.m in Sources */,
 				041E338B148A2FEE00C76265 /* AppDelegate.m in Sources */,
 				041E338E148A2FEE00C76265 /* ChatClient.xcdatamodeld in Sources */,
-				041E3391148A2FEE00C76265 /* MasterViewController.m in Sources */,
+				041E3391148A2FEE00C76265 /* ChatSessionController.m in Sources */,
 				041E3394148A2FEE00C76265 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,12 +310,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		041E3395148A2FEE00C76265 /* MasterViewController.xib */ = {
+		041E3395148A2FEE00C76265 /* ChatSessionController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				041E3396148A2FEE00C76265 /* en */,
 			);
-			name = MasterViewController.xib;
+			name = ChatSessionController.xib;
 			sourceTree = "<group>";
 		};
 		041E3398148A2FEE00C76265 /* DetailViewController.xib */ = {
@@ -455,6 +455,7 @@
 				041E33B5148A2FEE00C76265 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		041E33B6148A2FEE00C76265 /* Build configuration list for PBXNativeTarget "ChatClientTests" */ = {
 			isa = XCConfigurationList;
@@ -463,6 +464,7 @@
 				041E33B8148A2FEE00C76265 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

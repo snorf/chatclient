@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class DetailViewController;
+@class ChatController;
 
 #import <CoreData/CoreData.h>
 
-@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface ChatSessionController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
+@property (strong, nonatomic) ChatController *chatController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

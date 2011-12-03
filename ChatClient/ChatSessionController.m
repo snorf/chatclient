@@ -6,25 +6,26 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "MasterViewController.h"
+#import "ChatSessionController.h"
 
-#import "DetailViewController.h"
+#import "ChatController.h"
 
-@interface MasterViewController ()
+@interface ChatSessionController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation MasterViewController
+@implementation ChatSessionController
 
 @synthesize detailViewController = _detailViewController;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
+@synthesize chatController = _chatController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = NSLocalizedString(@"Master", @"Master");
+        self.title = NSLocalizedString(@"Chats", @"Chats");
     }
     return self;
 }
@@ -154,12 +155,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.detailViewController) {
-        self.detailViewController = [[[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil] autorelease];
+    if (!self.chatController) {
+        self.chatController = [[[ChatController alloc] initWithNibName:@"ChatController" bundle:nil] autorelease];
     }
     NSManagedObject *selectedObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    self.detailViewController.detailItem = selectedObject;    
-    [self.navigationController pushViewController:self.detailViewController animated:YES];
+    //self.chatController.detailItem = selectedObject;    
+    [self.navigationController pushViewController:self.chatController animated:YES];
 }
 
 #pragma mark - Fetched results controller
@@ -174,7 +175,7 @@
     // Create the fetch request for the entity.
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ChatSession" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
