@@ -2,18 +2,19 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ChatMessage" syncable="YES">
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="chatSession" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ChatSession" inverseName="chatMessages" inverseEntity="ChatSession" syncable="YES"/>
+        <relationship name="chatSession" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ChatSession" inverseName="chatMessages" inverseEntity="ChatSession" syncable="YES"/>
     </entity>
     <entity name="ChatSession">
         <attribute name="buddyUserId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastChatDate" optional="YES" attributeType="Date"/>
         <attribute name="lastChatMessage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="chatMessages" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ChatMessage" inverseName="chatSession" inverseEntity="ChatMessage" syncable="YES"/>
+        <relationship name="chatMessages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChatMessage" inverseName="chatSession" inverseEntity="ChatMessage" syncable="YES"/>
     </entity>
     <elements>
+        <element name="ChatMessage" positionX="-11648" positionY="-6213" width="128" height="105"/>
         <element name="ChatSession" positionX="-11810" positionY="-6426" width="128" height="120"/>
-        <element name="ChatMessage" positionX="-11648" positionY="-6213" width="128" height="90"/>
     </elements>
 </model>

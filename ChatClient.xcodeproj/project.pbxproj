@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04152E8B148A3DAD00255FC2 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152E89148A3DAD00255FC2 /* ChatController.m */; };
+		04152E8C148A3DAD00255FC2 /* ChatController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04152E8A148A3DAD00255FC2 /* ChatController.xib */; };
+		04152E8F148A41AD00255FC2 /* AKeyboardAwareUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152E8E148A41AD00255FC2 /* AKeyboardAwareUIViewController.m */; };
+		04152EAA148A482A00255FC2 /* CCMessageViewTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EA9148A482A00255FC2 /* CCMessageViewTableCell.m */; };
+		04152EAD148A4C5200255FC2 /* ChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EAC148A4C5200255FC2 /* ChatMessage.m */; };
+		04152EB0148A4CCF00255FC2 /* ChatSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152EAF148A4CCF00255FC2 /* ChatSession.m */; };
 		041E3379148A2FED00C76265 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E3378148A2FED00C76265 /* UIKit.framework */; };
 		041E337B148A2FED00C76265 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E337A148A2FED00C76265 /* Foundation.framework */; };
 		041E337D148A2FED00C76265 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E337C148A2FED00C76265 /* CoreGraphics.framework */; };
@@ -16,9 +22,7 @@
 		041E338B148A2FEE00C76265 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E338A148A2FEE00C76265 /* AppDelegate.m */; };
 		041E338E148A2FEE00C76265 /* ChatClient.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 041E338C148A2FEE00C76265 /* ChatClient.xcdatamodeld */; };
 		041E3391148A2FEE00C76265 /* ChatSessionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E3390148A2FEE00C76265 /* ChatSessionController.m */; };
-		041E3394148A2FEE00C76265 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E3393148A2FEE00C76265 /* DetailViewController.m */; };
 		041E3397148A2FEE00C76265 /* ChatSessionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E3395148A2FEE00C76265 /* ChatSessionController.xib */; };
-		041E339A148A2FEE00C76265 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041E3398148A2FEE00C76265 /* DetailViewController.xib */; };
 		041E33A2148A2FEE00C76265 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E33A1148A2FEE00C76265 /* SenTestingKit.framework */; };
 		041E33A3148A2FEE00C76265 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E3378148A2FED00C76265 /* UIKit.framework */; };
 		041E33A4148A2FEE00C76265 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E337A148A2FED00C76265 /* Foundation.framework */; };
@@ -38,6 +42,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04152E88148A3DAD00255FC2 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
+		04152E89148A3DAD00255FC2 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
+		04152E8A148A3DAD00255FC2 /* ChatController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatController.xib; sourceTree = "<group>"; };
+		04152E8D148A41AD00255FC2 /* AKeyboardAwareUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKeyboardAwareUIViewController.h; sourceTree = "<group>"; };
+		04152E8E148A41AD00255FC2 /* AKeyboardAwareUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKeyboardAwareUIViewController.m; sourceTree = "<group>"; };
+		04152EA8148A482A00255FC2 /* CCMessageViewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCMessageViewTableCell.h; sourceTree = "<group>"; };
+		04152EA9148A482A00255FC2 /* CCMessageViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCMessageViewTableCell.m; sourceTree = "<group>"; };
+		04152EAB148A4C5200255FC2 /* ChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMessage.h; sourceTree = "<group>"; };
+		04152EAC148A4C5200255FC2 /* ChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMessage.m; sourceTree = "<group>"; };
+		04152EAE148A4CCF00255FC2 /* ChatSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatSession.h; sourceTree = "<group>"; };
+		04152EAF148A4CCF00255FC2 /* ChatSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatSession.m; sourceTree = "<group>"; };
 		041E3374148A2FED00C76265 /* ChatClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		041E3378148A2FED00C76265 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		041E337A148A2FED00C76265 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,10 +67,7 @@
 		041E338D148A2FEE00C76265 /* ChatClient.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatClient.xcdatamodel; sourceTree = "<group>"; };
 		041E338F148A2FEE00C76265 /* ChatSessionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatSessionController.h; sourceTree = "<group>"; };
 		041E3390148A2FEE00C76265 /* ChatSessionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatSessionController.m; sourceTree = "<group>"; };
-		041E3392148A2FEE00C76265 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		041E3393148A2FEE00C76265 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		041E3396148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ChatSessionController.xib; sourceTree = "<group>"; };
-		041E3399148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 		041E33A0148A2FEE00C76265 /* ChatClientTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatClientTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		041E33A1148A2FEE00C76265 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		041E33AA148A2FEE00C76265 /* ChatClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ChatClientTests-Info.plist"; sourceTree = "<group>"; };
@@ -124,14 +136,22 @@
 		041E3380148A2FEE00C76265 /* ChatClient */ = {
 			isa = PBXGroup;
 			children = (
+				04152E8D148A41AD00255FC2 /* AKeyboardAwareUIViewController.h */,
+				04152E8E148A41AD00255FC2 /* AKeyboardAwareUIViewController.m */,
 				041E3389148A2FEE00C76265 /* AppDelegate.h */,
 				041E338A148A2FEE00C76265 /* AppDelegate.m */,
+				04152EA8148A482A00255FC2 /* CCMessageViewTableCell.h */,
+				04152EA9148A482A00255FC2 /* CCMessageViewTableCell.m */,
+				04152E88148A3DAD00255FC2 /* ChatController.h */,
+				04152E89148A3DAD00255FC2 /* ChatController.m */,
+				04152EAB148A4C5200255FC2 /* ChatMessage.h */,
+				04152EAC148A4C5200255FC2 /* ChatMessage.m */,
+				04152EAE148A4CCF00255FC2 /* ChatSession.h */,
+				04152EAF148A4CCF00255FC2 /* ChatSession.m */,
 				041E338F148A2FEE00C76265 /* ChatSessionController.h */,
 				041E3390148A2FEE00C76265 /* ChatSessionController.m */,
-				041E3392148A2FEE00C76265 /* DetailViewController.h */,
-				041E3393148A2FEE00C76265 /* DetailViewController.m */,
+				04152E8A148A3DAD00255FC2 /* ChatController.xib */,
 				041E3395148A2FEE00C76265 /* ChatSessionController.xib */,
-				041E3398148A2FEE00C76265 /* DetailViewController.xib */,
 				041E338C148A2FEE00C76265 /* ChatClient.xcdatamodeld */,
 				041E3381148A2FEE00C76265 /* Supporting Files */,
 			);
@@ -240,7 +260,7 @@
 			files = (
 				041E3385148A2FEE00C76265 /* InfoPlist.strings in Resources */,
 				041E3397148A2FEE00C76265 /* ChatSessionController.xib in Resources */,
-				041E339A148A2FEE00C76265 /* DetailViewController.xib in Resources */,
+				04152E8C148A3DAD00255FC2 /* ChatController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +299,11 @@
 				041E338B148A2FEE00C76265 /* AppDelegate.m in Sources */,
 				041E338E148A2FEE00C76265 /* ChatClient.xcdatamodeld in Sources */,
 				041E3391148A2FEE00C76265 /* ChatSessionController.m in Sources */,
-				041E3394148A2FEE00C76265 /* DetailViewController.m in Sources */,
+				04152E8B148A3DAD00255FC2 /* ChatController.m in Sources */,
+				04152E8F148A41AD00255FC2 /* AKeyboardAwareUIViewController.m in Sources */,
+				04152EAA148A482A00255FC2 /* CCMessageViewTableCell.m in Sources */,
+				04152EAD148A4C5200255FC2 /* ChatMessage.m in Sources */,
+				04152EB0148A4CCF00255FC2 /* ChatSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,14 +340,6 @@
 				041E3396148A2FEE00C76265 /* en */,
 			);
 			name = ChatSessionController.xib;
-			sourceTree = "<group>";
-		};
-		041E3398148A2FEE00C76265 /* DetailViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				041E3399148A2FEE00C76265 /* en */,
-			);
-			name = DetailViewController.xib;
 			sourceTree = "<group>";
 		};
 		041E33AB148A2FEE00C76265 /* InfoPlist.strings */ = {

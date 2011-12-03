@@ -9,6 +9,8 @@
 #import "ChatSessionController.h"
 
 #import "ChatController.h"
+#import "ChatSession.h"
+#import "ChatMessage.h"
 
 @interface ChatSessionController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -158,8 +160,10 @@
     if (!self.chatController) {
         self.chatController = [[[ChatController alloc] initWithNibName:@"ChatController" bundle:nil] autorelease];
     }
-    NSManagedObject *selectedObject = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    //self.chatController.detailItem = selectedObject;    
+    self.chatController.managedObjectContext = self.managedObjectContext;
+    ChatSession *chatSession = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    //NSLog(@"%@", [chatSession.chatMessages description]);
+    self.chatController.chatSession = chatSession;
     [self.navigationController pushViewController:self.chatController animated:YES];
 }
 
@@ -189,7 +193,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"] autorelease];
+    NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"ChatSession"] autorelease];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -269,8 +273,8 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    NSManagedObject *managedObject = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[managedObject valueForKey:@"timeStamp"] description];
+    ChatSession *chatSession = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [chatSession.timeStamp description];
 }
 
 - (void)insertNewObject
@@ -278,11 +282,18 @@
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    ChatSession *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
     // If appropriate, configure the new managed object.
     // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
+    newManagedObject.timeStamp = [NSDate date];
+    newManagedObject.buddyUserId = @"hejhapp";
+    
+    ChatMessage *chatMessage = [NSEntityDescription insertNewObjectForEntityForName:@"ChatMessage" inManagedObjectContext:context];
+    chatMessage.message = @"Echo123";
+    chatMessage.sender = @"You";
+    chatMessage.timeStamp = [NSDate date];
+    chatMessage.chatSession = newManagedObject;
     
     // Save the context.
     NSError *error = nil;
