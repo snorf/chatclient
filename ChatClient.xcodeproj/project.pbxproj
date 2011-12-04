@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04088CE6148C20510005AAEB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04088CE5148C20510005AAEB /* Default@2x.png */; };
 		04152E8B148A3DAD00255FC2 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152E89148A3DAD00255FC2 /* ChatController.m */; };
 		04152E8C148A3DAD00255FC2 /* ChatController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04152E8A148A3DAD00255FC2 /* ChatController.xib */; };
 		04152E8F148A41AD00255FC2 /* AKeyboardAwareUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04152E8E148A41AD00255FC2 /* AKeyboardAwareUIViewController.m */; };
@@ -35,7 +36,6 @@
 		042A327E148BFD86008F4876 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A327B148BFD86008F4876 /* Icon.png */; };
 		042A327F148BFD86008F4876 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A327C148BFD86008F4876 /* Icon@2x.png */; };
 		042A3280148BFD86008F4876 /* ItunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 042A327D148BFD86008F4876 /* ItunesArtwork */; };
-		042A3283148BFDFC008F4876 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A3282148BFDFC008F4876 /* Default@2x.png */; };
 		042A3287148BFF38008F4876 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A3286148BFF38008F4876 /* Default.png */; };
 		042A328C148C0663008F4876 /* orange.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042A328A148C0663008F4876 /* orange.jpg */; };
 		042A328D148C0663008F4876 /* aqua.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 042A328B148C0663008F4876 /* aqua.jpg */; };
@@ -54,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04088CE5148C20510005AAEB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		04152E88148A3DAD00255FC2 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
 		04152E89148A3DAD00255FC2 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 		04152E8A148A3DAD00255FC2 /* ChatController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatController.xib; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		042A327B148BFD86008F4876 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		042A327C148BFD86008F4876 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		042A327D148BFD86008F4876 /* ItunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = ItunesArtwork; sourceTree = "<group>"; };
-		042A3282148BFDFC008F4876 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		042A3286148BFF38008F4876 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		042A328A148C0663008F4876 /* orange.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = orange.jpg; sourceTree = "<group>"; };
 		042A328B148C0663008F4876 /* aqua.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aqua.jpg; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				042A3286148BFF38008F4876 /* Default.png */,
-				042A3282148BFDFC008F4876 /* Default@2x.png */,
+				04088CE5148C20510005AAEB /* Default@2x.png */,
 				042A327B148BFD86008F4876 /* Icon.png */,
 				042A327C148BFD86008F4876 /* Icon@2x.png */,
 				042A327D148BFD86008F4876 /* ItunesArtwork */,
@@ -339,10 +339,10 @@
 				042A327E148BFD86008F4876 /* Icon.png in Resources */,
 				042A327F148BFD86008F4876 /* Icon@2x.png in Resources */,
 				042A3280148BFD86008F4876 /* ItunesArtwork in Resources */,
-				042A3283148BFDFC008F4876 /* Default@2x.png in Resources */,
 				042A3287148BFF38008F4876 /* Default.png in Resources */,
 				042A328C148C0663008F4876 /* orange.jpg in Resources */,
 				042A328D148C0663008F4876 /* aqua.jpg in Resources */,
+				04088CE6148C20510005AAEB /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
