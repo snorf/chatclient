@@ -34,6 +34,11 @@
 		041E33A5148A2FEE00C76265 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041E337E148A2FED00C76265 /* CoreData.framework */; };
 		041E33AD148A2FEE00C76265 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 041E33AB148A2FEE00C76265 /* InfoPlist.strings */; };
 		041E33B0148A2FEE00C76265 /* ChatClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 041E33AF148A2FEE00C76265 /* ChatClientTests.m */; };
+		042A327E148BFD86008F4876 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A327B148BFD86008F4876 /* Icon.png */; };
+		042A327F148BFD86008F4876 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A327C148BFD86008F4876 /* Icon@2x.png */; };
+		042A3280148BFD86008F4876 /* ItunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 042A327D148BFD86008F4876 /* ItunesArtwork */; };
+		042A3283148BFDFC008F4876 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A3282148BFDFC008F4876 /* Default@2x.png */; };
+		042A3287148BFF38008F4876 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 042A3286148BFF38008F4876 /* Default.png */; };
 		04B350E1148BE4C300F94C3E /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B350DF148BE4C300F94C3E /* AddressBook.framework */; };
 		04B350E2148BE4C300F94C3E /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04B350E0148BE4C300F94C3E /* AddressBookUI.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +93,11 @@
 		041E33AC148A2FEE00C76265 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		041E33AE148A2FEE00C76265 /* ChatClientTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatClientTests.h; sourceTree = "<group>"; };
 		041E33AF148A2FEE00C76265 /* ChatClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatClientTests.m; sourceTree = "<group>"; };
+		042A327B148BFD86008F4876 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		042A327C148BFD86008F4876 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		042A327D148BFD86008F4876 /* ItunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = ItunesArtwork; sourceTree = "<group>"; };
+		042A3282148BFDFC008F4876 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		042A3286148BFF38008F4876 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		04B350DF148BE4C300F94C3E /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		04B350E0148BE4C300F94C3E /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -209,6 +219,11 @@
 		041E3381148A2FEE00C76265 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				042A3286148BFF38008F4876 /* Default.png */,
+				042A3282148BFDFC008F4876 /* Default@2x.png */,
+				042A327B148BFD86008F4876 /* Icon.png */,
+				042A327C148BFD86008F4876 /* Icon@2x.png */,
+				042A327D148BFD86008F4876 /* ItunesArtwork */,
 				041E3382148A2FEE00C76265 /* ChatClient-Info.plist */,
 				041E3383148A2FEE00C76265 /* InfoPlist.strings */,
 				041E3386148A2FEE00C76265 /* main.m */,
@@ -323,6 +338,11 @@
 				04152EB5148A5D6400255FC2 /* aqua.png in Resources */,
 				04152EB6148A5D6400255FC2 /* orange.png in Resources */,
 				04152EC3148B808C00255FC2 /* ChatSListTableViewCell.xib in Resources */,
+				042A327E148BFD86008F4876 /* Icon.png in Resources */,
+				042A327F148BFD86008F4876 /* Icon@2x.png in Resources */,
+				042A3280148BFD86008F4876 /* ItunesArtwork in Resources */,
+				042A3283148BFDFC008F4876 /* Default@2x.png in Resources */,
+				042A3287148BFF38008F4876 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

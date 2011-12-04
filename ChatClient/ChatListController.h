@@ -10,7 +10,8 @@
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreData/CoreData.h>
-@class ChatController;
+#import "ChatSession.h"
+#import "ChatController.h"
 
 // Class for keeping a list of the chat history
 // looks very much like the iOS Message application
@@ -28,6 +29,12 @@
 // Calls addressbook to get a name for a new chat
 - (void)initiateNewChat;
 
+// Pushes view controller for a chat session
+- (void)pushChatControllerForChatSession:(ChatSession*)session;
+
+// Finds existing chat
+- (ChatSession *) fetchExistingChatWithUser:(NSString *) buddyUserId;
+
 // Inserts a new chat in core data with name from Address book
-- (void)insertNewChatWithName:(NSString*)name;
+- (void)insertNewChatWithName:(NSString*)buddyUserId;
 @end

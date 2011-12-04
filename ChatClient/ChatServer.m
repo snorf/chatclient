@@ -150,8 +150,10 @@ static ChatServer *chatServer = nil;
     }
     [moc reset];
     [moc release];
-    //sleep(3);
-    //[self fillWithTestData];
+   
+    // Uncomment lines to load testdata when chatting
+    sleep(3);
+    [self fillWithTestData];
 }
 
 - (void)sendMessage:(NSString*)message inSession:(ChatSession*)session {

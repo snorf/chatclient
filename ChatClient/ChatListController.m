@@ -7,8 +7,6 @@
 //
 
 #import "ChatListController.h"
-#import "ChatController.h"
-#import "ChatSession.h"
 #import "ChatMessage.h"
 #import "ChatSessionCell.h"
 
@@ -150,17 +148,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {   
-    ChatController *chatController = [[ChatController alloc] initWithNibName:@"ChatController" bundle:nil];
     ChatSession *chatSession = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-  
-    // Set chat window data
-    chatController.chatSession = chatSession;
-    chatController.managedObjectContext = self.managedObjectContext;
-    //NSLog(@"ChatMessages: %@", [self.chatController.chatMessages description]);
-    chatController.title = chatSession.buddyUserId;
-    
-    [self.navigationController pushViewController:chatController animated:YES];
-    [chatController release];
+    [self pushChatControllerForChatSession:chatSession];
 }
 
 
@@ -295,22 +284,67 @@
     return NO;
 }
 
+- (void)pushChatControllerForChatSession:(ChatSession*)session {
+    // Push the new chat on the view controller
+    ChatController *chatController = [[ChatController alloc] initWithNibName:@"ChatController" bundle:nil];
+    
+    // Set chat window data
+    chatController.chatSession = session;
+    chatController.managedObjectContext = self.managedObjectContext;
+    //NSLog(@"ChatMessages: %@", [self.chatController.chatMessages description]);
+    chatController.title = session.buddyUserId;
+    
+    [self.navigationController pushViewController:chatController animated:YES];
+    [chatController release];
+}
 
-- (void)insertNewChatWithName:(NSString*)name
+- (ChatSession *) fetchExistingChatWithUser:(NSString *) buddyUserId {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ChatSession"
+                                              inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"buddyUserId == %@", buddyUserId];
+    [fetchRequest setPredicate:predicate];
+        
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        //... error handling code
+    }
+    
+    [fetchRequest release];
+    if ([fetchedObjects count] == 1) {
+        return (ChatSession*)[fetchedObjects objectAtIndex:0];
+    }
+    return nil;
+}
+
+- (void)insertNewChatWithName:(NSString*)buddyUserId
 {
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
     
-    ChatSession *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    // Check for existing chat
+    ChatSession *chatSession = [self fetchExistingChatWithUser:buddyUserId];    
     
-    newManagedObject.lastChatDate = [NSDate date];
-    newManagedObject.buddyUserId = name;
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    // If chat was found, push it - or else create a new one
+    if (chatSession) {
+        [self pushChatControllerForChatSession:chatSession];
+    } else {
+        chatSession = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+        
+        chatSession.lastChatDate = [NSDate date];
+        chatSession.buddyUserId = buddyUserId;
+        
+        // Save the context.
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        }
+        
+        [self pushChatControllerForChatSession:chatSession];
     }
 }
 
@@ -318,10 +352,14 @@
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
     
-    NSString* name = (NSString *)ABRecordCopyValue(person,
+    NSString *firstName = (NSString *)ABRecordCopyValue(person,
                                                    kABPersonFirstNameProperty);
-    name = [name stringByAppendingString:(NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty)];
-    [self insertNewChatWithName:name];
+    NSString *lastName = (NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty);
+
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+    [firstName release];
+    [lastName release];
+    [self insertNewChatWithName:fullName];
     
     [self dismissModalViewControllerAnimated:YES];
     
