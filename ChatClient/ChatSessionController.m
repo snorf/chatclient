@@ -11,6 +11,7 @@
 #import "ChatController.h"
 #import "ChatSession.h"
 #import "ChatMessage.h"
+#import "ChatSessionCell.h"
 
 @interface ChatSessionController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -22,12 +23,15 @@
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize chatController = _chatController;
+@synthesize labelCellNib = _labelCellNib;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.title = NSLocalizedString(@"Chats", @"Chats");
+        self.tableView.rowHeight = 70;
     }
     return self;
 }
@@ -37,6 +41,8 @@
     [_detailViewController release];
     [__fetchedResultsController release];
     [__managedObjectContext release];
+    [_labelCellNib release];
+    [_chatController release];
     [super dealloc];
 }
 
@@ -62,8 +68,7 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.labelCellNib = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -107,12 +112,11 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *CellIdentifier = @"ChatSessionTableViewCell";
+    ChatSessionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        NSArray *topLevelItems = [[self labelCellNib] instantiateWithOwner:self options:nil];
+        cell = [topLevelItems objectAtIndex:0];
     }
 
     [self configureCell:cell atIndexPath:indexPath];
@@ -156,21 +160,18 @@
 }
 
 
-- (void)setChatWindowData:(ChatSession*)chatSession {
-    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:YES] autorelease];
-    self.chatController.chatMessages = [chatSession.chatMessages.allObjects sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    self.chatController.chatSession = chatSession;
-    //NSLog(@"ChatMessages: %@", [self.chatController.chatMessages description]);
-    self.chatController.title = chatSession.buddyUserId;
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {   
     self.chatController = nil;
     self.chatController = [[ChatController alloc] initWithNibName:@"ChatController" bundle:nil];
     ChatSession *chatSession = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+  
     // Set chat window data
-    [self setChatWindowData:chatSession];
+    self.chatController.chatSession = chatSession;
+    self.chatController.managedObjectContext = self.managedObjectContext;
+    //NSLog(@"ChatMessages: %@", [self.chatController.chatMessages description]);
+    self.chatController.title = chatSession.buddyUserId;
     
     [self.navigationController pushViewController:self.chatController animated:YES];
     [self.chatController release];
@@ -282,10 +283,28 @@
 }
  */
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(ChatSessionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     ChatSession *chatSession = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [chatSession.lastChatMessage description];
+    cell.buddyUserName.text = chatSession.buddyUserId;
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    cell.date.text = [dateFormatter stringFromDate:chatSession.lastChatDate];
+    [dateFormatter release];
+    
+    cell.message.text = chatSession.lastChatMessage;
+}
+
+- (id)labelCellNib {
+    
+    if (!_labelCellNib) {
+        Class cls = NSClassFromString(@"UINib");
+        if ([cls respondsToSelector:@selector(nibWithNibName:bundle:)]) {
+            _labelCellNib = [[cls nibWithNibName:@"ChatSessionTableViewCell" bundle:[NSBundle mainBundle]] retain];
+        }
+    }
+    return _labelCellNib;
 }
 
 - (void)insertNewObject

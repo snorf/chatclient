@@ -12,14 +12,24 @@
 #import "ChatSession.h"
 #import "AKeyboardAwareUIViewController.h"
 #import "ChatServer.h"
+#import "CCMessageViewTableCell.h"
 
-@interface ChatController : AKeyboardAwareUIViewController <UITextFieldDelegate> {
-   IBOutlet UITableView *tableView;    
+@interface ChatController : AKeyboardAwareUIViewController <UITextFieldDelegate, NSFetchedResultsControllerDelegate> {
+    IBOutlet UITableView *tableView;    
+    IBOutlet UITextField *textField;    
 }
 
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UITextField *textField;
+
 @property (strong, nonatomic) ChatSession *chatSession;
 @property (strong, nonatomic) NSMutableArray *chatMessages;
 @property (strong, nonatomic) ChatServer *chatServer;
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (void)configureCell:(CCMessageViewTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (IBAction)sendAction:(id)sender;
 
 @end

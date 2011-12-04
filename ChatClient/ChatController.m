@@ -7,7 +7,6 @@
 //
 
 #import "ChatController.h"
-#import "CCMessageViewTableCell.h"
 #import "ChatMessage.h"
 
 @implementation ChatController
@@ -15,6 +14,9 @@
 @synthesize chatMessages;
 @synthesize chatSession;
 @synthesize chatServer;
+@synthesize fetchedResultsController = __fetchedResultsController;
+@synthesize managedObjectContext = __managedObjectContext;
+@synthesize textField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,7 +41,6 @@
     [super viewDidLoad];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataModelChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.chatSession.managedObjectContext];
 }
 
 - (void)viewDidUnload
@@ -82,19 +83,20 @@
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [chatMessages count];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
+static CGFloat padding = 20.0;
 
-int padding = 20;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:
 (NSIndexPath *)indexPath {
-    ChatMessage *chatMessage = [self.chatMessages objectAtIndex:indexPath.row];
+    ChatMessage *chatMessage = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     CGSize  textSize = { 260.0, 10000.0 };
     CGSize size = [chatMessage.message sizeWithFont:[UIFont boldSystemFontOfSize:13]
@@ -104,7 +106,8 @@ int padding = 20;
     size.height += padding*2;
     
     CGFloat height = size.height < 65 ? 65 : size.height;
-    return height;}
+    return height;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,18 +119,26 @@ int padding = 20;
         cell = [[[CCMessageViewTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    ChatMessage *chatMessage = [self.chatMessages objectAtIndex:indexPath.row];
+    [self configureCell:cell atIndexPath:indexPath];
+    
+    return cell;
+}
+
+- (void)configureCell:(CCMessageViewTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    ChatMessage *chatMessage = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     CGSize  textSize = { 260.0, 10000.0 };
     CGSize size = [chatMessage.message sizeWithFont:[UIFont boldSystemFontOfSize:13]
-                      constrainedToSize:textSize
-                          lineBreakMode:UILineBreakModeWordWrap];
+                                  constrainedToSize:textSize
+                                      lineBreakMode:UILineBreakModeWordWrap];
     
     size.width += (padding/2);
     
     cell.messageContentView.text = chatMessage.message;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.userInteractionEnabled = NO;
+    cell.userInteractionEnabled = YES;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIImage *bgImage = nil;
     
@@ -143,29 +154,30 @@ int padding = 20;
                                               size.height+padding)];
         
     } else {
-        
         bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
-        
         [cell.messageContentView setFrame:CGRectMake(320 - size.width - padding,
                                                      padding*2,
                                                      size.width,
                                                      size.height)];
-        
         [cell.bgImageView setFrame:CGRectMake(cell.messageContentView.frame.origin.x - padding/2,
                                               cell.messageContentView.frame.origin.y - padding/2,
                                               size.width+padding,
                                               size.height+padding)];
-        
     }
-    
+        
     cell.bgImageView.image = bgImage;
     cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@ %@", chatMessage.sender, chatMessage.timeStamp];
-    
-    return cell;
+}
+
+#pragma mark chat call
+- (IBAction)sendAction:(id)sender {
+    if (textField.text.length > 0) {
+        [chatServer sendMessage:textField.text inSession:chatSession];
+        textField.text = @"";
+    }
 }
 
 #pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
@@ -179,40 +191,106 @@ int padding = 20;
 }
 
 #pragma mark - UITextField delegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if (textField.text.length > 0) {
-        [chatServer sendMessage:textField.text inSession:chatSession];
-    }
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    [theTextField resignFirstResponder];
     return NO;
 }
 
-#pragma mark managed object updates
-- (void)handleDataModelChange:(NSNotification *)note;
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController
 {
-    NSSet *updatedObjects = [[note userInfo] objectForKey:NSUpdatedObjectsKey];
-    NSSet *deletedObjects = [[note userInfo] objectForKey:NSDeletedObjectsKey];
-    NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
-    if ([updatedObjects count]) {
-        for (id updatedObject in updatedObjects) {
-            NSLog(@"Kind: %@", [updatedObject description]);
-        }
+    if (__fetchedResultsController != nil) {
+        return __fetchedResultsController;
     }
-    NSLog(@"updated: %@", [updatedObjects description]);
-    NSLog(@"deleted: %@", [deletedObjects description]);
-    NSLog(@"inserted: %@", [insertedObjects description]);
-    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatSession == %@", chatSession];
-    if ([insertedObjects count]) {
-        for (id updatedObject in insertedObjects) {
-            if ([updatedObject isKindOfEntity:(NSEntityDescription *):[ChatMessage ]) {
-                ChatMessage *newMessage = (ChatMessage*)updatedObject;
-                
-            }
-            NSLog(@"Kind: %@", [updatedObject description]);
-        }
+    
+    // Set up the fetched results controller.
+    // Create the fetch request for the entity.
+    NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ChatMessage" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO] autorelease];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Predicate to get the right chat
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatSession = %@", chatSession];
+    fetchRequest.predicate = predicate;
+    
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil] autorelease];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+	NSError *error = nil;
+	if (![self.fetchedResultsController performFetch:&error]) {
+	    /*
+	     Replace this implementation with code to handle the error appropriately.
+         
+	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+	     */
+	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    abort();
+	}
+    
+    return __fetchedResultsController;
+}    
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
     }
+}
 
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(CCMessageViewTableCell*)[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
 
-    // Do something in response to this
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView endUpdates];
+    [self.tableView scrollsToTop];
 }
 
 @end

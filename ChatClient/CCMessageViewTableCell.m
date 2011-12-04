@@ -30,17 +30,12 @@
         messageContentView.backgroundColor = [UIColor clearColor];
         messageContentView.editable = NO;
         messageContentView.scrollEnabled = NO;
+        messageContentView.dataDetectorTypes = UIDataDetectorTypeLink;
+        messageContentView.userInteractionEnabled = YES;
         [messageContentView sizeToFit];
         [self.contentView addSubview:messageContentView];
     }
     return self;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)dealloc {

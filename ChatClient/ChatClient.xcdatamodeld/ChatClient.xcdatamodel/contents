@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="878" systemVersion="11C74" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="ChatMessage" syncable="YES">
+    <entity name="ChatMessage" representedClassName="ChatMessage" syncable="YES">
         <attribute name="message" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="chatSession" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ChatSession" inverseName="chatMessages" inverseEntity="ChatSession" syncable="YES"/>
     </entity>
-    <entity name="ChatSession">
+    <entity name="ChatSession" representedClassName="ChatSession">
         <attribute name="buddyUserId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastChatDate" optional="YES" attributeType="Date"/>
         <attribute name="lastChatMessage" optional="YES" attributeType="String" syncable="YES"/>

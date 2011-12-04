@@ -83,25 +83,36 @@ static ChatServer *chatServer = nil;
 }
 
 #pragma mark chat server methods
+- (NSString *) substituteEmoticons:(NSString*) message {
+    
+    //See http://www.easyapns.com/iphone-emoji-alerts for a list of emoticons available
+    
+    NSString *res = [message stringByReplacingOccurrencesOfString:@":)" withString:@"\ue415"];
+    res = [res stringByReplacingOccurrencesOfString:@":(" withString:@"\ue403"];
+    res = [res stringByReplacingOccurrencesOfString:@";)" withString:@"\ue405"];
+    res = [res stringByReplacingOccurrencesOfString:@":x" withString:@"\ue418"];
+    res = [res stringByReplacingOccurrencesOfString:@":D" withString:@"\ue415"];
+    
+    return res;
+    
+}
+
 - (void)sendMessage:(NSString*)message inSession:(ChatSession*)session {
     ChatSession *chatSession = (ChatSession*)[self.managedObjectContext objectWithID:session.objectID];
     ChatMessage *chatMessage = [NSEntityDescription insertNewObjectForEntityForName:@"ChatMessage" inManagedObjectContext:self.managedObjectContext];
-    chatMessage.message = message;
+    chatMessage.message = [self substituteEmoticons:message];
     chatMessage.sender = @"you";
     chatMessage.timeStamp = [NSDate date];
     chatMessage.chatSession = chatSession;
     
     ChatMessage *chatMessage2 = [NSEntityDescription insertNewObjectForEntityForName:@"ChatMessage" inManagedObjectContext:self.managedObjectContext];
-    chatMessage2.message = @"I here you man! :)";
+    chatMessage2.message = [self substituteEmoticons:@"I hear you man! :)"];
     chatMessage2.sender = session.buddyUserId;
     chatMessage2.timeStamp = [NSDate date];
     chatMessage2.chatSession = chatSession;
     
     chatSession.lastChatDate = [NSDate date];
     chatSession.lastChatMessage = chatMessage2.message;
-
-    [chatSession.chatMessages addObject:chatMessage];
-    [chatSession.chatMessages addObject:chatMessage2];
     
     NSError *error = nil;
     [self.managedObjectContext save:&error];
