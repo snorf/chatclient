@@ -39,9 +39,9 @@
 }
 
 - (void)dealloc {
-    self.senderAndTimeLabel = nil;
-    self.messageContentView = nil;
-    self.bgImageView = nil;
+    [self.senderAndTimeLabel release];
+    [self.messageContentView release];
+    [self.bgImageView release];
     [super dealloc];
 }
 
