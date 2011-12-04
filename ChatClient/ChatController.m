@@ -39,10 +39,7 @@
     [super viewDidLoad];
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    [self.chatSession addObserver:self
-                forKeyPath:@"chatMessages"
-                   options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                   context:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDataModelChange:) name:NSManagedObjectContextObjectsDidChangeNotification object:self.chatSession.managedObjectContext];
 }
 
 - (void)viewDidUnload
@@ -67,7 +64,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.chatSession removeObserver:self forKeyPath:@"chatMessages"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -190,25 +186,33 @@ int padding = 20;
     return NO;
 }
 
-#pragma mark - KVO
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
+#pragma mark managed object updates
+- (void)handleDataModelChange:(NSNotification *)note;
 {
-    if ([keyPath isEqualToString:@"chatMessages"]) {
-        NSLog(@"Changes: %@", [[change objectForKey:NSKeyValueChangeNewKey] description]);
-        NSMutableSet *oldObjects = [change objectForKey:NSKeyValueChangeOldKey];
-        NSMutableSet *newObjects = [change objectForKey:NSKeyValueChangeNewKey];
-        NSLog(@"old: %@", [oldObjects description]);
-        NSLog(@"new: %@", [newObjects description]);
-        
-        //NSNumber *kind = [change objectForKey:NSKeyValueChangeKindKey];
-        //if ([kind integerValue] == NSKeyValueChangeInsertion)  // Rows were added
-        //    [self.tableView insertRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
-        //else if ([kind integerValue] == NSKeyValueChangeRemoval)  // Rows were removed
-        //[self.tableView deleteRowsAtIndexPaths:indexPathArray withRowAnimation:UITableViewRowAnimationFade];
+    NSSet *updatedObjects = [[note userInfo] objectForKey:NSUpdatedObjectsKey];
+    NSSet *deletedObjects = [[note userInfo] objectForKey:NSDeletedObjectsKey];
+    NSSet *insertedObjects = [[note userInfo] objectForKey:NSInsertedObjectsKey];
+    if ([updatedObjects count]) {
+        for (id updatedObject in updatedObjects) {
+            NSLog(@"Kind: %@", [updatedObject description]);
+        }
     }
+    NSLog(@"updated: %@", [updatedObjects description]);
+    NSLog(@"deleted: %@", [deletedObjects description]);
+    NSLog(@"inserted: %@", [insertedObjects description]);
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatSession == %@", chatSession];
+    if ([insertedObjects count]) {
+        for (id updatedObject in insertedObjects) {
+            if ([updatedObject isKindOfEntity:(NSEntityDescription *):[ChatMessage ]) {
+                ChatMessage *newMessage = (ChatMessage*)updatedObject;
+                
+            }
+            NSLog(@"Kind: %@", [updatedObject description]);
+        }
+    }
+
+
+    // Do something in response to this
 }
 
 @end

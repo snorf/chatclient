@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) ChatSession *chatSession;
-@property (strong, nonatomic) NSArray *chatMessages;
+@property (strong, nonatomic) NSMutableArray *chatMessages;
 @property (strong, nonatomic) ChatServer *chatServer;
 
 @end
