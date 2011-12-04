@@ -22,7 +22,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //self.title = NSLocalizedString(@"Chats", @"Chats");
         self.chatServer = [ChatServer server];
     }
     return self;

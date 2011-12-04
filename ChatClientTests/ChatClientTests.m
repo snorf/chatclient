@@ -13,20 +13,25 @@
 - (void)setUp
 {
     [super setUp];
-    
-    // Set-up code here.
+    yourApplicationDelegate = [[UIApplication sharedApplication] delegate];
+    chatListController = [yourApplicationDelegate chatListController];
+    view = [chatListController view];    
 }
 
-- (void)tearDown
+- (void)testAppDelegate
 {
-    // Tear-down code here.
-    
-    [super tearDown];
+    STAssertNotNil(yourApplicationDelegate, @"UIApplication failed to find the AppDelegate");
 }
 
-- (void)testExample
+- (void)testViewController
 {
-    STFail(@"Unit tests are not implemented yet in ChatClientTests");
+    STAssertNotNil(chatListController, @"UIApplication failed to find the View Controller");
 }
+
+- (void)testView
+{
+    STAssertNotNil(view, @"UIApplication failed to find the View");
+}
+
 
 @end

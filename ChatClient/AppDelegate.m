@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 
-#import "ChatListController.h"
-
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -17,6 +15,7 @@
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize navigationController = _navigationController;
+@synthesize chatListController;
 
 - (void)dealloc
 {
@@ -25,6 +24,7 @@
     [__managedObjectModel release];
     [__persistentStoreCoordinator release];
     [_navigationController release];
+    [chatListController release];
     [super dealloc];
 }
 
@@ -33,9 +33,9 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
 
-    ChatListController *masterViewController = [[[ChatListController alloc] initWithNibName:@"ChatListController" bundle:nil] autorelease];
-    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
-    masterViewController.managedObjectContext = self.managedObjectContext;
+    self.chatListController = [[[ChatListController alloc] initWithNibName:@"ChatListController" bundle:nil] autorelease];
+    self.navigationController = [[[UINavigationController alloc] initWithRootViewController:self.chatListController] autorelease];
+    self.chatListController.managedObjectContext = self.managedObjectContext;
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
