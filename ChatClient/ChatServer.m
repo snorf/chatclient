@@ -112,12 +112,12 @@ static ChatServer *chatServer = nil;
     NSManagedObjectContext *moc = [self copyOfManagedObjectContext];
     // Using pool to keep low memory footprint
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    for (int i=0; i<500; i++) {
+    for (int i=0; i<50; i++) {
         NSDate *date = [NSDate date];
         NSString *buddyUserName = [NSString stringWithFormat:@"Buddy %d", i];
         ChatSession *chatSession = [NSEntityDescription insertNewObjectForEntityForName:@"ChatSession" inManagedObjectContext:moc];
         chatSession.buddyUserId = buddyUserName;
-        for (int j=0; j<1000; j++) {
+        for (int j=0; j<100; j++) {
             [self insertMessage:[NSString stringWithFormat:@"Hello %d ;)", j] fromSender:buddyUserName inChatSession:chatSession atDate:date inMoc:moc];
             [self insertMessage:[NSString stringWithFormat:@"Message %d :)", j] fromSender:@"you" inChatSession:chatSession atDate:date inMoc:moc];
         }
@@ -152,8 +152,8 @@ static ChatServer *chatServer = nil;
     [moc release];
    
     // Uncomment lines to load testdata when chatting
-    sleep(3);
-    [self fillWithTestData];
+    //sleep(3);
+    //[self fillWithTestData];
 }
 
 - (void)sendMessage:(NSString*)message inSession:(ChatSession*)session {

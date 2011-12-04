@@ -27,11 +27,12 @@
         [self.contentView addSubview:bgImageView];
         
         messageContentView = [[UITextView alloc] init];
-        messageContentView.backgroundColor = [UIColor clearColor];
+        messageContentView.backgroundColor = [UIColor whiteColor];
         messageContentView.editable = NO;
         messageContentView.scrollEnabled = NO;
         messageContentView.dataDetectorTypes = UIDataDetectorTypeLink;
         messageContentView.userInteractionEnabled = YES;
+        messageContentView.opaque = YES;
         [messageContentView sizeToFit];
         [self.contentView addSubview:messageContentView];
     }

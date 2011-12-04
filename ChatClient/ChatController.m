@@ -152,14 +152,14 @@ static CGFloat padding = 20.0;
     // If sender is you, create a orange ballon or else a blue one
     if ([chatMessage.sender isEqualToString:@"you"]) { // left aligned
         
-        bgImage = [[UIImage imageNamed:@"orange.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
+        bgImage = [[UIImage imageNamed:@"orange.jpg"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
         [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
         [cell.bgImageView setFrame:CGRectMake( cell.messageContentView.frame.origin.x - padding/2,
                                               cell.messageContentView.frame.origin.y - padding/2,
                                               size.width+padding,
                                               size.height+padding)];
     } else {
-        bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
+        bgImage = [[UIImage imageNamed:@"aqua.jpg"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
         [cell.messageContentView setFrame:CGRectMake(320 - size.width - padding,
                                                      padding*2,
                                                      size.width,

@@ -103,7 +103,7 @@
     if (!_labelCellNib) {
         Class cls = NSClassFromString(@"UINib");
         if ([cls respondsToSelector:@selector(nibWithNibName:bundle:)]) {
-            _labelCellNib = [[cls nibWithNibName:@"ChatSessionTableViewCell" bundle:[NSBundle mainBundle]] retain];
+            _labelCellNib = [[cls nibWithNibName:@"ChatListTableViewCell" bundle:[NSBundle mainBundle]] retain];
         }
     }
     return _labelCellNib;
