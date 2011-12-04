@@ -11,7 +11,6 @@
 
 @implementation ChatController
 @synthesize tableView;
-@synthesize chatMessages;
 @synthesize chatSession;
 @synthesize chatServer;
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -31,6 +30,9 @@
 {
     [__fetchedResultsController release];
     [__managedObjectContext release];
+    [tableView release];
+    [chatSession release];
+    [textField release];
     [super dealloc];
 }
 
@@ -56,6 +58,8 @@
     // e.g. self.myOutlet = nil;
     self.tableView = nil;
     self.view = nil;
+    self.chatSession = nil;
+    self.textField = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -147,18 +151,18 @@ static CGFloat padding = 20.0;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     UIImage *bgImage = nil;
+    UIEdgeInsets imgInsets = UIEdgeInsetsMake(15.f, 23.f, 15.f, 23.f);
     
     // If sender is you, create a orange ballon or else a blue one
     if ([chatMessage.sender isEqualToString:@"you"]) { // left aligned
-        
-        bgImage = [[UIImage imageNamed:@"orange.jpg"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
+        bgImage = [[UIImage imageNamed:@"orange.jpg"] resizableImageWithCapInsets:imgInsets];
         [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
         [cell.bgImageView setFrame:CGRectMake( cell.messageContentView.frame.origin.x - padding/2,
                                               cell.messageContentView.frame.origin.y - padding/2,
                                               size.width+padding,
                                               size.height+padding)];
     } else {
-        bgImage = [[UIImage imageNamed:@"aqua.jpg"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
+        bgImage = [[UIImage imageNamed:@"aqua.jpg"] resizableImageWithCapInsets:imgInsets];
         [cell.messageContentView setFrame:CGRectMake(320 - size.width - padding,
                                                      padding*2,
                                                      size.width,

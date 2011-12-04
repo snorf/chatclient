@@ -24,7 +24,6 @@
 @property (strong, nonatomic) UITextField *textField;
 
 @property (strong, nonatomic) ChatSession *chatSession;
-@property (strong, nonatomic) NSMutableArray *chatMessages;
 @property (strong, nonatomic) ChatServer *chatServer;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
