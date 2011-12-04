@@ -140,7 +140,7 @@ static CGFloat padding = 20.0;
                                   constrainedToSize:textSize
                                       lineBreakMode:UILineBreakModeWordWrap];
     
-    size.width += (padding/2);
+    size.width += (padding/2)*1.5;
     
     cell.messageContentView.text = chatMessage.message;
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -266,7 +266,8 @@ static CGFloat padding = 20.0;
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
-    [self.tableView scrollsToTop];
+    // Scroll to top, since we only get inserts at the moment
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 @end
