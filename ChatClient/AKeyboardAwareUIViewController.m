@@ -78,7 +78,7 @@
 
 
 - (void)dealloc {
-
+    [self.view removeObserver:self forKeyPath:@"frame" context:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super dealloc];
 }

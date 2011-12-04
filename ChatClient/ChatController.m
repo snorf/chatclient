@@ -28,6 +28,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [__fetchedResultsController release];
+    [__managedObjectContext release];
+    [super dealloc];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -100,8 +107,8 @@ static CGFloat padding = 20.0;
     
     CGSize  textSize = { 260.0, 10000.0 };
     CGSize size = [chatMessage.message sizeWithFont:[UIFont boldSystemFontOfSize:13]
-                  constrainedToSize:textSize
-                      lineBreakMode:UILineBreakModeWordWrap];
+                                  constrainedToSize:textSize
+                                      lineBreakMode:UILineBreakModeWordWrap];
     
     size.height += padding*2;
     
@@ -142,17 +149,15 @@ static CGFloat padding = 20.0;
     
     UIImage *bgImage = nil;
     
+    // If sender is you, create a orange ballon or else a blue one
     if ([chatMessage.sender isEqualToString:@"you"]) { // left aligned
         
         bgImage = [[UIImage imageNamed:@"orange.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
-        
         [cell.messageContentView setFrame:CGRectMake(padding, padding*2, size.width, size.height)];
-        
         [cell.bgImageView setFrame:CGRectMake( cell.messageContentView.frame.origin.x - padding/2,
                                               cell.messageContentView.frame.origin.y - padding/2,
                                               size.width+padding,
                                               size.height+padding)];
-        
     } else {
         bgImage = [[UIImage imageNamed:@"aqua.png"] stretchableImageWithLeftCapWidth:24  topCapHeight:15];
         [cell.messageContentView setFrame:CGRectMake(320 - size.width - padding,
@@ -164,7 +169,7 @@ static CGFloat padding = 20.0;
                                               size.width+padding,
                                               size.height+padding)];
     }
-        
+    
     cell.bgImageView.image = bgImage;
     cell.senderAndTimeLabel.text = [NSString stringWithFormat:@"%@ %@", chatMessage.sender, chatMessage.timeStamp];
 }
@@ -184,7 +189,6 @@ static CGFloat padding = 20.0;
 }
 
 #pragma mark - Fetched results controller
-
 - (NSFetchedResultsController *)fetchedResultsController
 {
     if (__fetchedResultsController != nil) {

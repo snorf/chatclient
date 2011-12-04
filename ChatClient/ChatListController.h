@@ -9,20 +9,25 @@
 #import <UIKit/UIKit.h>
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-
-@class DetailViewController;
+#import <CoreData/CoreData.h>
 @class ChatController;
 
-#import <CoreData/CoreData.h>
-
+// Class for keeping a list of the chat history
+// looks very much like the iOS Message application
+//
 @interface ChatListController : UITableViewController <NSFetchedResultsControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
-
-@property (strong, nonatomic) DetailViewController *detailViewController;
-@property (strong, nonatomic) ChatController *chatController;
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, retain) id labelCellNib;
 
+// Configures a cell in the table view
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+// Calls addressbook to get a name for a new chat
+- (void)initiateNewChat;
+
+// Inserts a new chat in core data with name from Address book
+- (void)insertNewChatWithName:(NSString*)name;
 @end

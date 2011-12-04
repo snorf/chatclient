@@ -54,7 +54,7 @@
 		04152E8A148A3DAD00255FC2 /* ChatController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatController.xib; sourceTree = "<group>"; };
 		04152E8D148A41AD00255FC2 /* AKeyboardAwareUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKeyboardAwareUIViewController.h; sourceTree = "<group>"; };
 		04152E8E148A41AD00255FC2 /* AKeyboardAwareUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKeyboardAwareUIViewController.m; sourceTree = "<group>"; };
-		04152EA8148A482A00255FC2 /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ChatTableViewCell.h; sourceTree = "<group>"; };
+		04152EA8148A482A00255FC2 /* ChatTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatTableViewCell.h; sourceTree = "<group>"; };
 		04152EA9148A482A00255FC2 /* ChatTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatTableViewCell.m; sourceTree = "<group>"; };
 		04152EB3148A5D6400255FC2 /* aqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aqua.png; sourceTree = "<group>"; };
 		04152EB4148A5D6400255FC2 /* orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange.png; sourceTree = "<group>"; };
@@ -156,8 +156,6 @@
 		041E3369148A2FED00C76265 = {
 			isa = PBXGroup;
 			children = (
-				04B350DF148BE4C300F94C3E /* AddressBook.framework */,
-				04B350E0148BE4C300F94C3E /* AddressBookUI.framework */,
 				041E3380148A2FEE00C76265 /* ChatClient */,
 				041E33A8148A2FEE00C76265 /* ChatClientTests */,
 				041E3377148A2FED00C76265 /* Frameworks */,
@@ -177,6 +175,8 @@
 		041E3377148A2FED00C76265 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04B350DF148BE4C300F94C3E /* AddressBook.framework */,
+				04B350E0148BE4C300F94C3E /* AddressBookUI.framework */,
 				041E3378148A2FED00C76265 /* UIKit.framework */,
 				041E337A148A2FED00C76265 /* Foundation.framework */,
 				041E337C148A2FED00C76265 /* CoreGraphics.framework */,

@@ -59,44 +59,6 @@ static ChatServer *chatServer = nil;
                                waitUntilDone:YES];	
 }
 
-
-- (id)init {
-    if (self = [super init]) {
-        // Initialize managed object context
-        self.managedObjectContext = [self copyOfManagedObjectContext];
-    }
-    return self;
-}
-- (void)dealloc {
-    // Should never be called, but just here for clarity really.
-    [super dealloc];
-}
-
-#pragma mark chat server methods
-- (NSString *) substituteEmoticons:(NSString*) res {
-    
-    //See http://www.easyapns.com/iphone-emoji-alerts for a list of emoticons available
-    
-    res = [res stringByReplacingOccurrencesOfString:@":)" withString:@"\ue415"];
-    res = [res stringByReplacingOccurrencesOfString:@":(" withString:@"\ue403"];
-    res = [res stringByReplacingOccurrencesOfString:@";)" withString:@"\ue405"];
-    res = [res stringByReplacingOccurrencesOfString:@":x" withString:@"\ue418"];
-    res = [res stringByReplacingOccurrencesOfString:@":D" withString:@"\ue415"];
-    
-    return res;
-    
-}
-
-- (void)insertMessage:(NSString *)message fromSender:(NSString *)sender inChatSession:(ChatSession *)chatSession atDate:(NSDate *)date inMoc:(NSManagedObjectContext*)moc {
-    ChatMessage *chatMessage = [NSEntityDescription insertNewObjectForEntityForName:@"ChatMessage" inManagedObjectContext:moc];
-    chatMessage.message = [self substituteEmoticons:message];
-    chatMessage.sender = sender;
-    chatMessage.timeStamp = date;
-    chatMessage.chatSession = chatSession;
-    chatSession.lastChatDate = [NSDate date];
-    chatSession.lastChatMessage = message;
-}
-
 - (NSManagedObjectContext*)copyOfManagedObjectContext {
     // Since this is running on a separate thread we need our own MOC
     NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] init];
@@ -113,8 +75,42 @@ static ChatServer *chatServer = nil;
     return moc;
 }
 
+- (id)init {
+    if (self = [super init]) {
+        // Initialize managed object context
+        self.managedObjectContext = [self copyOfManagedObjectContext];
+    }
+    return self;
+}
+- (void)dealloc {
+    // Should never be called, but just here for clarity really.
+    [super dealloc];
+}
+
+#pragma mark chat server methods
+
+- (NSString *) substituteEmoticons:(NSString*) res {
+    res = [res stringByReplacingOccurrencesOfString:@":)" withString:@"\ue415"];
+    res = [res stringByReplacingOccurrencesOfString:@":(" withString:@"\ue403"];
+    res = [res stringByReplacingOccurrencesOfString:@";)" withString:@"\ue405"];
+    res = [res stringByReplacingOccurrencesOfString:@":x" withString:@"\ue418"];
+    res = [res stringByReplacingOccurrencesOfString:@":D" withString:@"\ue415"];
+    return res;
+}
+
+- (void)insertMessage:(NSString *)message fromSender:(NSString *)sender inChatSession:(ChatSession *)chatSession atDate:(NSDate *)date inMoc:(NSManagedObjectContext*)moc {
+    ChatMessage *chatMessage = [NSEntityDescription insertNewObjectForEntityForName:@"ChatMessage" inManagedObjectContext:moc];
+    chatMessage.message = [self substituteEmoticons:message];
+    chatMessage.sender = sender;
+    chatMessage.timeStamp = date;
+    chatMessage.chatSession = chatSession;
+    chatSession.lastChatDate = [NSDate date];
+    chatSession.lastChatMessage = message;
+}
+
 - (void)fillWithTestData {
     NSManagedObjectContext *moc = [self copyOfManagedObjectContext];
+    // Using pool to keep low memory footprint
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     for (int i=0; i<500; i++) {
         NSDate *date = [NSDate date];
@@ -132,19 +128,20 @@ static ChatServer *chatServer = nil;
             NSLog(@"Error: %@", error.localizedDescription);
         }
         [moc reset];
-
+        
         // Drain the pool
         [pool drain];
         pool = [[NSAutoreleasePool alloc] init];
     }
     [pool drain];
+    [moc release];
 }
 
 - (void)answerMessageInSession:(ChatSession*)session {
     NSManagedObjectContext *moc = [self copyOfManagedObjectContext];
     sleep(2);
     session = (ChatSession*)[moc objectWithID:session.objectID];
-    [self insertMessage:@"I hear you man :)" fromSender:session.buddyUserId inChatSession:session atDate:[NSDate date] inMoc:moc];
+    [self insertMessage:@"I hear you :)" fromSender:session.buddyUserId inChatSession:session atDate:[NSDate date] inMoc:moc];
     NSError *error = nil;
     [moc save:&error];
     
@@ -152,16 +149,16 @@ static ChatServer *chatServer = nil;
         NSLog(@"Error: %@", error.localizedDescription);
     }
     [moc reset];
-    
+    [moc release];
     //sleep(3);
     //[self fillWithTestData];
 }
 
 - (void)sendMessage:(NSString*)message inSession:(ChatSession*)session {
     ChatSession *chatSession = (ChatSession*)[self.managedObjectContext objectWithID:session.objectID];
-
+    
     [self insertMessage:message fromSender:@"you" inChatSession:chatSession atDate:[NSDate date] inMoc:self.managedObjectContext];
-            
+    
     NSError *error = nil;
     [self.managedObjectContext save:&error];
     
@@ -170,7 +167,7 @@ static ChatServer *chatServer = nil;
     }
     
     [self.managedObjectContext reset];
-
+    
     NSOperationQueue *queue = [NSOperationQueue new];
     
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
@@ -179,6 +176,7 @@ static ChatServer *chatServer = nil;
     
     [queue addOperation:operation];
     [operation release];
+    [queue release];
 }
 
 @end

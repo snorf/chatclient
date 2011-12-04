@@ -12,16 +12,10 @@
 #import "ChatMessage.h"
 #import "ChatSessionCell.h"
 
-@interface ChatListController ()
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-@end
-
 @implementation ChatListController
 
-@synthesize detailViewController = _detailViewController;
 @synthesize fetchedResultsController = __fetchedResultsController;
 @synthesize managedObjectContext = __managedObjectContext;
-@synthesize chatController = _chatController;
 @synthesize labelCellNib = _labelCellNib;
 
 
@@ -37,11 +31,9 @@
 							
 - (void)dealloc
 {
-    [_detailViewController release];
     [__fetchedResultsController release];
     [__managedObjectContext release];
     [_labelCellNib release];
-    [_chatController release];
     [super dealloc];
 }
 
@@ -110,7 +102,6 @@
 
 
 - (id)labelCellNib {
-    
     if (!_labelCellNib) {
         Class cls = NSClassFromString(@"UINib");
         if ([cls respondsToSelector:@selector(nibWithNibName:bundle:)]) {
@@ -159,18 +150,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {   
-    self.chatController = nil;
-    self.chatController = [[ChatController alloc] initWithNibName:@"ChatController" bundle:nil];
+    ChatController *chatController = [[ChatController alloc] initWithNibName:@"ChatController" bundle:nil];
     ChatSession *chatSession = [[self fetchedResultsController] objectAtIndexPath:indexPath];
   
     // Set chat window data
-    self.chatController.chatSession = chatSession;
-    self.chatController.managedObjectContext = self.managedObjectContext;
+    chatController.chatSession = chatSession;
+    chatController.managedObjectContext = self.managedObjectContext;
     //NSLog(@"ChatMessages: %@", [self.chatController.chatMessages description]);
-    self.chatController.title = chatSession.buddyUserId;
+    chatController.title = chatSession.buddyUserId;
     
-    [self.navigationController pushViewController:self.chatController animated:YES];
-    [self.chatController release];
+    [self.navigationController pushViewController:chatController animated:YES];
+    [chatController release];
 }
 
 
@@ -269,16 +259,6 @@
     [self.tableView endUpdates];
 }
 
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.tableView reloadData];
-}
- */
-
 - (void)configureCell:(ChatSessionCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     ChatSession *chatSession = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -342,7 +322,6 @@
                                                    kABPersonFirstNameProperty);
     name = [name stringByAppendingString:(NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty)];
     [self insertNewChatWithName:name];
-    [name release];
     
     [self dismissModalViewControllerAnimated:YES];
     

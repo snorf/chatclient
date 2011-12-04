@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+//
+// Custom table view cell used in chat view
+// Inspiration from here:
+// http://mobile.tutsplus.com/tutorials/iphone/building-a-jabber-client-for-ios-custom-chat-view-and-emoticons/
+//
 @interface ChatTableViewCell : UITableViewCell
 @property (nonatomic,assign) UILabel *senderAndTimeLabel;
 @property (nonatomic,assign) UITextView *messageContentView;
