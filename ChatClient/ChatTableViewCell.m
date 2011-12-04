@@ -6,9 +6,9 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "CCMessageViewTableCell.h"
+#import "ChatTableViewCell.h"
 
-@implementation CCMessageViewTableCell
+@implementation ChatTableViewCell
 @synthesize senderAndTimeLabel;
 @synthesize messageContentView;
 @synthesize bgImageView;

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "ChatSessionController.h"
+#import "ChatListController.h"
 
 @implementation AppDelegate
 
@@ -33,7 +33,7 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
 
-    ChatSessionController *masterViewController = [[[ChatSessionController alloc] initWithNibName:@"ChatSessionController" bundle:nil] autorelease];
+    ChatListController *masterViewController = [[[ChatListController alloc] initWithNibName:@"ChatListController" bundle:nil] autorelease];
     self.navigationController = [[[UINavigationController alloc] initWithRootViewController:masterViewController] autorelease];
     masterViewController.managedObjectContext = self.managedObjectContext;
     self.window.rootViewController = self.navigationController;

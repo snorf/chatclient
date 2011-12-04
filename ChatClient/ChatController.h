@@ -12,7 +12,7 @@
 #import "ChatSession.h"
 #import "AKeyboardAwareUIViewController.h"
 #import "ChatServer.h"
-#import "CCMessageViewTableCell.h"
+#import "ChatTableViewCell.h"
 
 @interface ChatController : AKeyboardAwareUIViewController <UITextFieldDelegate, NSFetchedResultsControllerDelegate> {
     IBOutlet UITableView *tableView;    
@@ -29,7 +29,7 @@
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
-- (void)configureCell:(CCMessageViewTableCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(ChatTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 - (IBAction)sendAction:(id)sender;
 
 @end

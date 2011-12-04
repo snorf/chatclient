@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CCMessageViewTableCell : UITableViewCell
+@interface ChatTableViewCell : UITableViewCell
 @property (nonatomic,assign) UILabel *senderAndTimeLabel;
 @property (nonatomic,assign) UITextView *messageContentView;
 @property (nonatomic,assign) UIImageView *bgImageView;

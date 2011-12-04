@@ -113,10 +113,10 @@ static CGFloat padding = 20.0;
 {
     static NSString *CellIdentifier = @"ChatListItem";
     
-    CCMessageViewTableCell *cell = (CCMessageViewTableCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ChatTableViewCell *cell = (ChatTableViewCell *)[self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[[CCMessageViewTableCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[ChatTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
@@ -124,7 +124,7 @@ static CGFloat padding = 20.0;
     return cell;
 }
 
-- (void)configureCell:(CCMessageViewTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(ChatTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     ChatMessage *chatMessage = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
@@ -177,19 +177,6 @@ static CGFloat padding = 20.0;
     }
 }
 
-#pragma mark - Table view delegate
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-}
-
 #pragma mark - UITextField delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     [theTextField resignFirstResponder];
@@ -204,41 +191,26 @@ static CGFloat padding = 20.0;
         return __fetchedResultsController;
     }
     
-    // Set up the fetched results controller.
-    // Create the fetch request for the entity.
     NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-    // Edit the entity name as appropriate.
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"ChatMessage" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
-    // Edit the sort key as appropriate.
     NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO] autorelease];
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-    
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];    
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     // Predicate to get the right chat
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatSession = %@", chatSession];
     fetchRequest.predicate = predicate;
     
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
     NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil] autorelease];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
 	NSError *error = nil;
 	if (![self.fetchedResultsController performFetch:&error]) {
-	    /*
-	     Replace this implementation with code to handle the error appropriately.
-         
-	     abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	     */
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
 	}
     
     return __fetchedResultsController;
@@ -277,7 +249,7 @@ static CGFloat padding = 20.0;
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:(CCMessageViewTableCell*)[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(ChatTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:

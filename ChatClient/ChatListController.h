@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 
 @class DetailViewController;
 @class ChatController;
 
 #import <CoreData/CoreData.h>
 
-@interface ChatSessionController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface ChatListController : UITableViewController <NSFetchedResultsControllerDelegate, ABPeoplePickerNavigationControllerDelegate>
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 @property (strong, nonatomic) ChatController *chatController;

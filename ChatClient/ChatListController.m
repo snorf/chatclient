@@ -6,18 +6,17 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "ChatSessionController.h"
-
+#import "ChatListController.h"
 #import "ChatController.h"
 #import "ChatSession.h"
 #import "ChatMessage.h"
 #import "ChatSessionCell.h"
 
-@interface ChatSessionController ()
+@interface ChatListController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@implementation ChatSessionController
+@implementation ChatListController
 
 @synthesize detailViewController = _detailViewController;
 @synthesize fetchedResultsController = __fetchedResultsController;
@@ -61,7 +60,7 @@
     // Set up the edit and add buttons.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject)] autorelease];
+    UIBarButtonItem *addButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(initiateNewChat)] autorelease];
     self.navigationItem.rightBarButtonItem = addButton;
 }
 
@@ -109,10 +108,22 @@
     return [sectionInfo numberOfObjects];
 }
 
+
+- (id)labelCellNib {
+    
+    if (!_labelCellNib) {
+        Class cls = NSClassFromString(@"UINib");
+        if ([cls respondsToSelector:@selector(nibWithNibName:bundle:)]) {
+            _labelCellNib = [[cls nibWithNibName:@"ChatSessionTableViewCell" bundle:[NSBundle mainBundle]] retain];
+        }
+    }
+    return _labelCellNib;
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"ChatSessionTableViewCell";
+    static NSString *CellIdentifier = @"ChatListTableViewCell";
     ChatSessionCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         NSArray *topLevelItems = [[self labelCellNib] instantiateWithOwner:self options:nil];
@@ -122,15 +133,6 @@
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -142,13 +144,7 @@
         // Save the context.
         NSError *error = nil;
         if (![context save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             */
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
         }
     }   
 }
@@ -198,7 +194,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO] autorelease];
+    NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"lastChatDate" ascending:NO] autorelease];
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -296,40 +292,60 @@
     cell.message.text = chatSession.lastChatMessage;
 }
 
-- (id)labelCellNib {
+# pragma mark Initiating new chat methods (delegates for address book)
+- (void)initiateNewChat {
+    ABPeoplePickerNavigationController *picker =
+    [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
     
-    if (!_labelCellNib) {
-        Class cls = NSClassFromString(@"UINib");
-        if ([cls respondsToSelector:@selector(nibWithNibName:bundle:)]) {
-            _labelCellNib = [[cls nibWithNibName:@"ChatSessionTableViewCell" bundle:[NSBundle mainBundle]] retain];
-        }
-    }
-    return _labelCellNib;
+    [self presentModalViewController:picker animated:YES];
+    [picker release];
 }
 
-- (void)insertNewObject
+- (void)peoplePickerNavigationControllerDidCancel:
+(ABPeoplePickerNavigationController *)peoplePicker {
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (BOOL)peoplePickerNavigationController:
+(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier{
+    return NO;
+}
+
+
+- (void)insertNewChatWithName:(NSString*)name
 {
     // Create a new instance of the entity managed by the fetched results controller.
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+    
     ChatSession *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
     
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    newManagedObject.timeStamp = [NSDate date];
-    newManagedObject.buddyUserId = @"hejhapp";
+    newManagedObject.lastChatDate = [NSDate date];
+    newManagedObject.buddyUserId = name;
     
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         */
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
     }
 }
 
+- (BOOL)peoplePickerNavigationController:
+(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person {
+    
+    NSString* name = (NSString *)ABRecordCopyValue(person,
+                                                   kABPersonFirstNameProperty);
+    name = [name stringByAppendingString:(NSString *)ABRecordCopyValue(person, kABPersonLastNameProperty)];
+    [self insertNewChatWithName:name];
+    [name release];
+    
+    [self dismissModalViewControllerAnimated:YES];
+    
+    return NO;
+}
 @end

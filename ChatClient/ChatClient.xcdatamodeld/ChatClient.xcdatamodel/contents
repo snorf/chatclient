@@ -7,8 +7,8 @@
         <relationship name="chatSession" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ChatSession" inverseName="chatMessages" inverseEntity="ChatSession" syncable="YES"/>
     </entity>
     <entity name="ChatSession" representedClassName="ChatSession">
-        <attribute name="buddyUserId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="lastChatDate" optional="YES" attributeType="Date"/>
+        <attribute name="buddyUserId" attributeType="String" syncable="YES"/>
+        <attribute name="lastChatDate" optional="YES" attributeType="Date" indexed="YES"/>
         <attribute name="lastChatMessage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeStamp" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="chatMessages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChatMessage" inverseName="chatSession" inverseEntity="ChatMessage" syncable="YES"/>
