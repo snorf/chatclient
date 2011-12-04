@@ -55,15 +55,6 @@ RUNTIME REQUIREMENTS:
 Simulator: Mac OS X v10.7.2
 iPhone: iPhone OS 5.0.1
 
-
-===========================================================================
-PACKAGING LIST:
-
-AppDelegate.h
-AppDelegate.m
-
-The AppDelegate class defines the application delegate object, responsible for instantiating the application's view.
-
 ================================================================================
  2011-12-04 Johan Karlsteen
 
