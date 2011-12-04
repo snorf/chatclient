@@ -211,6 +211,7 @@ static CGFloat padding = 20.0;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"chatSession = %@", chatSession];
     fetchRequest.predicate = predicate;
     
+    // Using no cache name, but maybe I could cache on ChatSession name?
     NSFetchedResultsController *aFetchedResultsController = [[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil] autorelease];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;

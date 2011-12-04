@@ -10,11 +10,10 @@
         <attribute name="buddyUserId" attributeType="String" syncable="YES"/>
         <attribute name="lastChatDate" optional="YES" attributeType="Date" indexed="YES"/>
         <attribute name="lastChatMessage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timeStamp" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="chatMessages" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ChatMessage" inverseName="chatSession" inverseEntity="ChatMessage" syncable="YES"/>
     </entity>
     <elements>
         <element name="ChatMessage" positionX="-11468" positionY="-6408" width="128" height="105"/>
-        <element name="ChatSession" positionX="-11810" positionY="-6426" width="128" height="120"/>
+        <element name="ChatSession" positionX="-11810" positionY="-6426" width="128" height="105"/>
     </elements>
 </model>

@@ -8,7 +8,8 @@ It has no backend, the client will just respond with a standard answer after 3 s
 
 To start chatting, hit the +-button and choose a contact (in the simulator you have to add a contact).
 A chat window will appear and you can enter text.
-Text is sent with the send button or by pressing Done on the keyboard.
+Text is sent with the send button. The keyboard is dismissed with Done.
+Hyperlinks are translated to clickable links and a couple of emoticons are translated to smileys.
 
 Some comments about the choices I have made.
 
@@ -36,7 +37,11 @@ Sometimes when I bounce the ChatView at the top or bottom the ballon images get 
 No search function:
 Right now there is no way to search in the messages. I would really like to add this but my time is almost up and I know that there are some work to be done to do an effective free text search in CoreData.
 
+To load test data:
+Uncomment the last 2 lines in ChatServer.m answerMessageInSession:
+Then send a message to anyone, then core data will be populated with some data.
 
+I really liked this assigment. I have learned a lot that I didn't know about CoreData etc and I have also realized that there is a ton more to learn.
 
 ===========================================================================
 BUILD REQUIREMENTS:
